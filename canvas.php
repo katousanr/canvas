@@ -248,6 +248,10 @@ class Canvas
                 break;
             case 3:
                 $this->img      = imagecreatefrompng($this->origem);
+                //mantem transparencia
+                imageAlphaBlending($this->img , true);
+                imageSaveAlpha($this->img , true );
+                
                 $this->extensao = 'png';
                 break;
             case 6:
@@ -468,7 +472,9 @@ class Canvas
 
         // cria imagem de destino temporária
         $this->img_temp = imagecreatetruecolor($dif_w, $dif_h);
-
+        //conserva transparencia
+        imageAlphaBlending($this->img_temp , false);
+        imageSaveAlpha($this->img_tempo , true);
         // Resample
         imagecopyresampled($this->img_temp, $this->img, 0, 0, 0, 0, $dif_w, $dif_h, $this->largura, $this->altura);
         $this->img = $this->img_temp;
@@ -826,7 +832,7 @@ class Canvas
         return $this;
     } // fim marca
 
-    /**
+    /**c
      * adiciona imagem de marca d'água, com valores fixos
      * ex: topo_esquerda, topo_direita etc.
      * Implementação original por Giolvani <inavloig@gmail.com>
@@ -1086,7 +1092,12 @@ class Canvas
         return $this;
 
     } // fim grava
-
+    
+public get_dimensao()
+{
+    $this->dimensoes();
+    return = array('largura' => this->largura , 'altura' => this->altura);
+}
 } // fim da classe
 
 
